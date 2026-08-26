@@ -1,4 +1,4 @@
-"""API local para demonstrar o contador sem AWS, Docker ou LocalStack.
+"""API local para demonstrar o contador sem AWS ou serviços externos.
 
 Fluxo equivalente para a apresentação:
 Navegador -> API local -> função de incremento -> arquivo JSON persistente.

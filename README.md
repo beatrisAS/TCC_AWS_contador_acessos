@@ -4,7 +4,7 @@
 
 > **Uma aplicação para registrar acessos em páginas de lançamento.**
 
-## Visão Geral
+## 👁️ Visão geral
 
 Uma campanha de lançamento precisa medir rapidamente quantas pessoas chegaram à sua página. O volume de acessos pode variar bastante e, antes da divulgação, não é possível saber se haverá poucos visitantes ou um pico de tráfego.
 
@@ -163,6 +163,9 @@ Este projeto foi desenvolvido para fins acadêmicos e educacionais no âmbito do
 
 ## 🔗 Referências
 
+### 🏷️ Tags
+
+`aws` `serverless` `python` `flask` `aws-cdk` `lambda` `dynamodb` `api-gateway` `cloud-computing` `local-development` `tcc` `escola-da-nuvem`
 
 [1]: https://github.com/craffos/tcc-contador-acessos "Repositório de referência do contador de acessos"
 [2]: https://github.com/beatrisAS/TCC_AWS_contador_acessos "Repositório do projeto"
