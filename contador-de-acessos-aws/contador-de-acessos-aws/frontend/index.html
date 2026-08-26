@@ -8,7 +8,7 @@
         body { font-family: Arial, sans-serif; text-align: center; padding-top: 50px; background-color: #f4f4f9; color: #333; }
         .contador-box { background: #6E40C9; color: white; padding: 20px; border-radius: 10px; display: inline-block; margin-top: 20px; }
         h1 { font-size: 2.5em; }
-        #numero-acessos { font-size: 2em; font-weight: bold; }
+        #numero-acessos { display:block; font-size:2em; font-weight:bold; } #status-contador { display:block; margin-top:10px; opacity:.8; }
     </style>
 </head>
 <body>
@@ -18,8 +18,10 @@
     <div class="contador-box">
         <p>Pessoas que já demonstraram interesse:</p>
         <span id="numero-acessos">Carregando...</span>
+        <small id="status-contador">Preparando simulação...</small>
     </div>
 
+    <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

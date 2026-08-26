@@ -22,10 +22,14 @@ class ContadorAcessosStack(Stack):
       
         funcao_contador = _lambda.Function(
             self, "FuncaoContador",
-            runtime=_lambda.Runtime.PYTHON_3_9,
+            runtime=_lambda.Runtime.PYTHON_3_12,
             handler="contador_lambda.handler",
             code=_lambda.Code.from_asset("lambda"),
-            environment={"NOME_TABELA": tabela_contador.table_name}
+            environment={
+                "NOME_TABELA": tabela_contador.table_name,
+                "AWS_ENDPOINT_URL": "http://host.docker.internal:4566",
+                "AWS_DEFAULT_REGION": "us-east-1",
+            }
         )
 
    

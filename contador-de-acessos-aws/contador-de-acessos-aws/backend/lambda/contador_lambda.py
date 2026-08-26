@@ -2,13 +2,20 @@ import json
 import os
 import boto3
 
-dynamodb = boto3.resource('dynamodb')
-NOME_TABELA = os.environ.get('NOME_TABELA')
-tabela = dynamodb.Table(NOME_TABELA)
+NOME_TABELA = os.environ.get('NOME_TABELA', 'AccessCounter')
+AWS_ENDPOINT_URL = os.environ.get('AWS_ENDPOINT_URL')
+
+def _tabela():
+    dynamodb = boto3.resource(
+        'dynamodb',
+        region_name=os.environ.get('AWS_DEFAULT_REGION', 'us-east-1'),
+        endpoint_url=AWS_ENDPOINT_URL or None,
+    )
+    return dynamodb.Table(NOME_TABELA)
 
 def handler(event, context):
     try:
-        response = tabela.update_item(
+        response = _tabela().update_item(
             Key={'id': 'hits'},
             UpdateExpression='ADD acessos :inc',
             ExpressionAttributeValues={':inc': 1},
