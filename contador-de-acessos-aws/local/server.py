@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 from threading import Lock
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify  # type: ignore[reportMissingImports]
 
 APP_DIR = Path(__file__).resolve().parent
 DATA_FILE = APP_DIR / "data.json"

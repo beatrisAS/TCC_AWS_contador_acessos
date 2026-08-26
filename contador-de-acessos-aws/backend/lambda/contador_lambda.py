@@ -1,6 +1,6 @@
 import json
 import os
-import boto3
+import boto3  # pyright: ignore[reportMissingImports]
 
 NOME_TABELA = os.environ.get('NOME_TABELA', 'AccessCounter')
 AWS_ENDPOINT_URL = os.environ.get('AWS_ENDPOINT_URL')
