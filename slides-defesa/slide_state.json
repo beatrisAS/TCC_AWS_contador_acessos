@@ -1,0 +1,174 @@
+{
+  "project_info": {
+    "title": "Contador de Acessos Serverless",
+    "created": 1787713802.291,
+    "last_updated": 1787714417.063,
+    "total_slides": 12
+  },
+  "slides": [
+    {
+      "id": "capa",
+      "state": "edited",
+      "pageNum": 1
+    },
+    {
+      "id": "avaliacao",
+      "state": "edited",
+      "pageNum": 2
+    },
+    {
+      "id": "problema",
+      "state": "edited",
+      "pageNum": 3
+    },
+    {
+      "id": "servicos",
+      "state": "edited",
+      "pageNum": 4
+    },
+    {
+      "id": "decisoes",
+      "state": "edited",
+      "pageNum": 5
+    },
+    {
+      "id": "solucao",
+      "state": "edited",
+      "pageNum": 6
+    },
+    {
+      "id": "fluxo",
+      "state": "edited",
+      "pageNum": 7
+    },
+    {
+      "id": "localstack",
+      "state": "edited",
+      "pageNum": 8
+    },
+    {
+      "id": "custos",
+      "state": "edited",
+      "pageNum": 9
+    },
+    {
+      "id": "seguranca",
+      "state": "edited",
+      "pageNum": 10
+    },
+    {
+      "id": "mercado",
+      "state": "edited",
+      "pageNum": 11
+    },
+    {
+      "id": "conclusao",
+      "state": "edited",
+      "pageNum": 12
+    },
+    {
+      "id": "desafio",
+      "state": "deleted",
+      "pageNum": -1
+    },
+    {
+      "id": "dados",
+      "state": "deleted",
+      "pageNum": -1
+    },
+    {
+      "id": "cdk",
+      "state": "deleted",
+      "pageNum": -1
+    },
+    {
+      "id": "repositorio",
+      "state": "deleted",
+      "pageNum": -1
+    },
+    {
+      "id": "validacao",
+      "state": "deleted",
+      "pageNum": -1
+    },
+    {
+      "id": "evolucoes",
+      "state": "deleted",
+      "pageNum": -1
+    }
+  ],
+  "outline": [
+    {
+      "id": "capa",
+      "title": "Contador de Acessos Serverless",
+      "summary": "Título, subtítulo e identificação da Escola da Nuvem.",
+      "image_plan": "Use a suitable image if needed"
+    },
+    {
+      "id": "avaliacao",
+      "title": "O guia avalia comunicação, entendimento e equipe",
+      "summary": "Apresentar os três critérios centrais do documento: clareza, domínio do problema e integração do grupo.",
+      "image_plan": "No image needed; use three visual pillars."
+    },
+    {
+      "id": "problema",
+      "title": "Uma campanha precisa transformar interesse em evidência",
+      "summary": "Contexto da startup, landing page e necessidade de medir acessos.",
+      "image_plan": "Use a suitable image if needed"
+    },
+    {
+      "id": "servicos",
+      "title": "Cada serviço tem uma função e uma justificativa",
+      "summary": "Explicar o que são API Gateway, Lambda e DynamoDB, como foram usados e por que foram escolhidos.",
+      "image_plan": "No image needed; use a three-layer service diagram."
+    },
+    {
+      "id": "decisoes",
+      "title": "A arquitetura foi escolhida por critérios objetivos",
+      "summary": "Relacionar requisito, alternativas consideradas e critérios de decisão: custo, integração, escala e familiaridade.",
+      "image_plan": "No image needed; use a decision matrix."
+    },
+    {
+      "id": "solucao",
+      "title": "A solução separa entrada, processamento e dados",
+      "summary": "Visão geral dos serviços AWS e suas responsabilidades.",
+      "image_plan": "Use a suitable image if needed"
+    },
+    {
+      "id": "fluxo",
+      "title": "O dado percorre um fluxo curto e rastreável",
+      "summary": "Fluxo Usuário, API Gateway, Lambda e DynamoDB.",
+      "image_plan": "Use a suitable image if needed"
+    },
+    {
+      "id": "localstack",
+      "title": "LocalStack permite validar sem conta AWS",
+      "summary": "Docker, cdklocal, deploy local e fallback localStorage.",
+      "image_plan": "Use a suitable image if needed"
+    },
+    {
+      "id": "custos",
+      "title": "Serverless favorece uso consciente da AWS",
+      "summary": "Mostrar como a equipe trataria custos, Free Tier, calculadora de preços e alertas de billing em uma implantação real.",
+      "image_plan": "No image needed; use a cost control dashboard layout."
+    },
+    {
+      "id": "seguranca",
+      "title": "Segurança e operação foram consideradas desde o desenho",
+      "summary": "IAM, CORS, credenciais, CloudWatch, WAF e HTTPS.",
+      "image_plan": "Use a suitable image if needed"
+    },
+    {
+      "id": "mercado",
+      "title": "O projeto é reproduzível e aplicável ao mercado",
+      "summary": "Destacar README, variáveis documentadas, IaC, passo a passo e o problema real resolvido.",
+      "image_plan": "No image needed; use an open-source quality checklist."
+    },
+    {
+      "id": "conclusao",
+      "title": "Conclusão: o projeto demonstra o ciclo completo",
+      "summary": "Síntese dos resultados e do valor acadêmico do projeto.",
+      "image_plan": "Use a suitable image if needed"
+    }
+  ]
+}

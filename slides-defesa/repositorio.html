@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background: #f6f4ee;
+            color: #14283b;
+            font-family: Arial, sans-serif;
+            padding-top: 62px;
+            padding-left: 84px;
+            padding-right: 84px;
+            position: relative;
+        }
+        .tag {
+            font: 700 13px 'Courier New', monospace;
+            letter-spacing: 3px;
+            color: #f97316;
+            text-transform: uppercase;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: 900;
+            margin-top: 18px;
+            line-height: 1.1;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 40px;
+            margin-top: 60px;
+        }
+        .file-tree {
+            border: 2px solid #14283b;
+            background: #fff;
+            padding: 32px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            line-height: 1.6;
+            min-height: 380px;
+        }
+        .file-tree b { color: #f97316; }
+        .table-container {
+            width: 100%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 16px;
+        }
+        th {
+            text-align: left;
+            padding: 12px;
+            background: #14283b;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+        td {
+            padding: 15px 12px;
+            border-bottom: 1px solid #14283b22;
+            color: #607080;
+            line-height: 1.4;
+        }
+        td b { color: #14283b; }
+        .telemetry {
+            position: absolute;
+            top: 62px;
+            right: 84px;
+            font: 700 11px 'Courier New', monospace;
+            color: #f97316;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="telemetry">REPO_SYNC: SUCCESSFUL</div>
+        <div class="tag">08 · ORGANIZAÇÃO</div>
+        <h1 class="title">O repositório passou a ser<br>executável e documentado.</h1>
+
+        <div class="content-grid">
+            <div class="file-tree">
+                📂 TCC_AWS_Contador<br>
+                ├── <b>docker-compose.yml</b><br>
+                ├── 📂 scripts/<br>
+                │   └── <b>setup-local.sh</b><br>
+                ├── 📂 docs/<br>
+                │   └── <b>testes-localstack.md</b><br>
+                └── 📂 frontend/<br>
+                    └── <b>config.js</b>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ARQUIVO / DIRETÓRIO</th>
+                            <th>FINALIDADE TÉCNICA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>docker-compose.yml</b></td>
+                            <td>Orquestra o container LocalStack com os serviços AWS necessários.</td>
+                        </tr>
+                        <tr>
+                            <td><b>scripts/setup-local.sh</b></td>
+                            <td>Automatiza o bootstrap e o deploy local via cdklocal.</td>
+                        </tr>
+                        <tr>
+                            <td><b>frontend/config.js</b></td>
+                            <td>Centraliza a URL da API Gateway sem expor credenciais.</td>
+                        </tr>
+                        <tr>
+                            <td><b>docs/testes-localstack.md</b></td>
+                            <td>Guia prático com comandos curl e aws-cli para validação.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

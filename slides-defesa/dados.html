@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background: #f6f4ee;
+            color: #14283b;
+            font-family: Arial, sans-serif;
+            position: relative;
+            padding-top: 62px;
+            padding-left: 84px;
+            padding-right: 84px;
+        }
+        .tag {
+            font: 700 13px 'Courier New', monospace;
+            letter-spacing: 3px;
+            color: #f97316;
+            text-transform: uppercase;
+        }
+        .title {
+            font-size: 50px;
+            line-height: 1.05;
+            margin-top: 18px;
+            font-weight: 900;
+        }
+        .accent-line {
+            width: 100px;
+            height: 6px;
+            background: #f97316;
+            margin-top: 20px;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+        }
+        .data-box {
+            border: 2px solid #14283b;
+            background: #ffffff;
+            padding: 32px;
+            min-height: 340px;
+            position: relative;
+        }
+        .box-label {
+            font: 700 12px 'Courier New', monospace;
+            color: #f97316;
+            margin-bottom: 24px;
+            display: block;
+            border-bottom: 1px solid #14283b1f;
+            padding-bottom: 8px;
+        }
+        pre {
+            font-family: 'Courier New', monospace;
+            font-size: 22px;
+            line-height: 1.4;
+            color: #14283b;
+        }
+        .highlight {
+            color: #f97316;
+            font-weight: bold;
+        }
+        .explanation {
+            margin-top: 24px;
+            font-size: 17px;
+            line-height: 1.5;
+            color: #607080;
+        }
+        .explanation b {
+            color: #14283b;
+        }
+        .telemetry {
+            position: absolute;
+            bottom: 40px;
+            right: 84px;
+            font: 500 12px 'Courier New', monospace;
+            color: #607080;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .telemetry span {
+            width: 30px;
+            border-top: 1px dashed #f97316;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="tag">05 · Camada de Dados</div>
+        <h1 class="title">A atualização atômica protege<br>a integridade do contador.</h1>
+        <div class="accent-line"></div>
+
+        <div class="content-grid">
+            <div class="data-box">
+                <span class="box-label">ESTRUTURA DO ITEM (DYNAMODB)</span>
+                <pre>
+{
+  "<span class="highlight">id</span>": "hits",
+  "<span class="highlight">acessos</span>": 1250,
+  "updatedAt": "2026-08-26"
+}
+                </pre>
+                <div class="explanation">
+                    <b>Partition Key:</b> "id" identifica o contador.<br>
+                    <b>Persistência:</b> O valor é mantido de forma durável e altamente disponível.
+                </div>
+            </div>
+
+            <div class="data-box">
+                <span class="box-label">LÓGICA DE INCREMENTO</span>
+                <pre>
+UpdateExpression: 
+  "<span class="highlight">ADD acessos :inc</span>"
+
+ExpressionAttributeValues: 
+  { ":inc": 1 }
+                </pre>
+                <div class="explanation">
+                    <b>Operação Atômica:</b> O incremento ocorre no banco, evitando o padrão frágil de "ler → somar → gravar".
+                </div>
+            </div>
+        </div>
+
+        <div class="telemetry">
+            <span></span> DYNAMODB_CONSISTENCY / ACTIVE
+        </div>
+    </div>
+</body>
+</html>
