@@ -1,4 +1,4 @@
-from aws_cdk import (
+from aws_cdk import (  # type: ignore[import-not-found]
     CfnOutput,
     Duration,
     Stack,

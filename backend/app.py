@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import aws_cdk as cdk
+import aws_cdk as cdk  # type: ignore[reportMissingImports]
 
 from contador_stack import ContadorAcessosStack
 
