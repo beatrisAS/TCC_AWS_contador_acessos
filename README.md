@@ -134,9 +134,6 @@ A Lambda deveria receber apenas a permissão de leitura e escrita necessária na
 
 A execução local valida o contrato da API, a regra de incremento, a persistência do valor e a interação básica do front-end. Ela não comprova escalabilidade, disponibilidade ou custos de uma implantação real na AWS. Essa distinção deve ser mantida na defesa para apresentar o produto com precisão técnica.
 
-## 🧭 Próximas evoluções
-
-Como próximos passos, a base pode receber autenticação para uma área de acompanhamento, contagem por campanha, métricas por período, exportação de dados, alarmes operacionais e uma implantação controlada na AWS após revisão de custos e permissões.
 
 ## 👥 Equipe
 
