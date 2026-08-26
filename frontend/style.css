@@ -1,0 +1,32 @@
+* { box-sizing: border-box; }
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  color: #f5f7ff;
+  background: radial-gradient(circle at top, #27346b, #0d1024 70%);
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.card {
+  width: min(100%, 620px);
+  padding: 56px 42px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 28px;
+  background: rgba(14, 18, 47, .82);
+  box-shadow: 0 25px 80px rgba(0,0,0,.35);
+}
+
+.tag { color: #91a7ff; font-weight: 800; letter-spacing: .18em; }
+h1 { margin: 20px 0 12px; font-size: clamp(2rem, 6vw, 4rem); line-height: 1.03; }
+.subtitle { color: #c6cae2; font-size: 1.1rem; }
+.counter { display: grid; gap: 4px; margin: 36px 0; }
+.counter strong { color: #8ef0c3; font-size: 4rem; }
+.counter span { color: #c6cae2; }
+button { border: 0; border-radius: 999px; padding: 15px 26px; color: #0d1024; background: #8ef0c3; font-size: 1rem; font-weight: 800; cursor: pointer; }
+button:disabled { opacity: .6; cursor: wait; }
+.message { min-height: 24px; color: #8ef0c3; }
