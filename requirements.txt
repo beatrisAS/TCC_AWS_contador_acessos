@@ -1,5 +1,5 @@
 Flask>=3.0,<4.0
-boto3>=1.34,<2.0
-aws-cdk-lib>=2.150,<3.0
-constructs>=10.0,<11.0
 pytest>=8.0,<9.0
+aws-cdk-lib>=2.0.0
+constructs>=10.0.0
+boto3>=1.26.0

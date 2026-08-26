@@ -1,28 +1,30 @@
-const totalElement = document.querySelector("#total");
-const button = document.querySelector("#interestButton");
-const message = document.querySelector("#message");
+const total = document.getElementById("total");
+const status = document.getElementById("status");
+const button = document.getElementById("registrar");
+const API = "http://127.0.0.1:5000/api/acessos";
 
-async function loadTotal() {
-  const response = await fetch("/hits");
+async function consultar() {
+  const response = await fetch(API);
   const data = await response.json();
-  totalElement.textContent = data.total;
+  total.textContent = data.total_acessos;
+  status.textContent = "API local conectada";
 }
 
-button.addEventListener("click", async () => {
+async function registrar() {
   button.disabled = true;
-  message.textContent = "Registrando seu interesse...";
   try {
-    const response = await fetch("/hits", { method: "POST" });
+    const response = await fetch(API, { method: "POST" });
     const data = await response.json();
-    totalElement.textContent = data.total;
-    message.textContent = "Interesse registrado com sucesso.";
+    total.textContent = data.total_acessos;
+    status.textContent = "Acesso registrado";
   } catch (error) {
-    message.textContent = "Não foi possível registrar agora.";
+    status.textContent = "Não foi possível conectar à API local";
   } finally {
     button.disabled = false;
   }
-});
+}
 
-loadTotal().catch(() => {
-  message.textContent = "Inicie o servidor local para carregar o contador.";
+button.addEventListener("click", registrar);
+consultar().catch(() => {
+  status.textContent = "Inicie a API local para testar";
 });
