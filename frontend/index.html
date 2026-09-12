@@ -3,16 +3,305 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Contador de Acessos</title>
+  <title>Em Breve | Campanha de Lançamento</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: #05070B;
+      --accent-orange: #FF9900;
+      --accent-glow: rgba(255, 153, 0, 0.25);
+      --text-main: #FFFFFF;
+      --text-muted: #94A3B8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    /* Efeitos de Luz de Fundo com Animação Flutuante */
+    .ambient-glow {
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 350px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, rgba(5, 7, 11, 0) 70%);
+      z-index: 0;
+      pointer-events: none;
+      animation: floatGlow 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatGlow {
+      0% { transform: translateX(-50%) translateY(0) scale(1); }
+      100% { transform: translateX(-50%) translateY(20px) scale(1.1); }
+    }
+
+    /* Contador no Canto Superior com Efeito Glassmorphism Dinâmico */
+    .corner-counter {
+      position: fixed;
+      top: 25px;
+      right: 30px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 12px 20px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 100;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .corner-counter:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 153, 0, 0.3);
+    }
+
+    .counter-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-orange);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--accent-orange);
+      animation: pulseDot 2s infinite;
+    }
+
+    .corner-counter span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    #total {
+      color: #FFF;
+      font-weight: 800;
+      transition: transform 0.2s ease;
+      display: inline-block;
+    }
+
+    /* Topo / Marca */
+    header {
+      padding: 2.5rem 5%;
+      z-index: 10;
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    .brand {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #FFF;
+      text-transform: uppercase;
+    }
+
+    .brand span {
+      color: var(--accent-orange);
+    }
+
+    /* Conteúdo Principal (Hero Section) com Entrada Suave */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 20px 80px 20px;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .launch-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(255, 153, 0, 0.08);
+      border: 1px solid rgba(255, 153, 0, 0.2);
+      border-radius: 100px;
+      color: var(--accent-orange);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 20px rgba(255, 153, 0, 0.1);
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 span {
+      background: linear-gradient(135deg, #FFFFFF 20%, #64748B 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-text {
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      color: var(--text-muted);
+      max-width: 600px;
+      line-height: 1.6;
+      font-weight: 300;
+      margin-bottom: 3rem;
+    }
+
+    .cta-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+    }
+
+    /* Botão com Efeitos de Hover, Sombra Dinâmica e Clique Fluido */
+    button#registrar {
+      background: var(--accent-orange);
+      color: #05070B;
+      border: none;
+      padding: 20px 45px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 10px 30px rgba(255, 153, 0, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button#registrar::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(rgba(255,255,255,0.2), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    button#registrar:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(255, 153, 0, 0.5);
+      background-color: #FFA722;
+    }
+
+    button#registrar:hover::after {
+      opacity: 1;
+    }
+
+    button#registrar:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+
+    #status {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.4);
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      transition: color 0.3s ease;
+    }
+
+    footer {
+      padding: 2rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 0.8rem;
+      z-index: 10;
+      animation: fadeIn 1s ease-out forwards;
+    }
+
+    /* Keyframes de Animação */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes pulseDot {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 153, 0, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(255, 153, 0, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 153, 0, 0); }
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Elemento de luz ambiente animada -->
+  <div class="ambient-glow"></div>
+
+  <!-- Contador discreto posicionado no canto superior direito -->
+  <div class="corner-counter">
+    <div class="counter-dot"></div>
+    <span>Interessados: <strong id="total">0</strong></span>
+  </div>
+
+  <header>
+    <div class="brand">Growth<span>Pulse</span></div>
+  </header>
+
   <main>
-    <h1>Contador de Acessos</h1>
-    <p>Base local para demonstrar o fluxo conceitual Serverless.</p>
-    <p>Acessos registrados: <strong id="total">0</strong></p>
-    <button id="registrar" type="button">Registrar acesso</button>
-    <p id="status" role="status">Conectando...</p>
+    <div class="launch-badge">
+      <span>●</span> Em Breve
+    </div>
+
+    <h1>Algo extraordinário está <br><span>sendo preparado.</span></h1>
+    
+    <p class="hero-text">
+      Estamos desenvolvendo uma solução inovadora para revolucionar o mercado. Cadastre-se e garanta seu acesso antecipado no lançamento.
+    </p>
+
+    <div class="cta-container">
+      <button id="registrar" type="button">Quero Participar</button>
+      <p id="status" role="status">Sistema pronto.</p>
+    </div>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Startup de Marketing. Todos os direitos reservados.</p>
+  </footer>
+
   <script src="script.js"></script>
 </body>
 </html>

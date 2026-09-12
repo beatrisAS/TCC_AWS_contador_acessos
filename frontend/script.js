@@ -26,5 +26,5 @@ async function registrar() {
 
 button.addEventListener("click", registrar);
 consultar().catch(() => {
-  status.textContent = "Inicie a API local para testar";
+  status.textContent = "";
 });

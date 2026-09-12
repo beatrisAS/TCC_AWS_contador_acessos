@@ -1,149 +1,126 @@
 # 🚀 Contador de Acessos Serverless
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white) ![Flask](https://img.shields.io/badge/Flask-000000?logo=flask&logoColor=white) ![AWS](https://img.shields.io/badge/AWS-FF9900?logo=amazonaws&logoColor=white) ![CDK](https://img.shields.io/badge/AWS_CDK-IaC-FF9900?logo=amazonaws&logoColor=white) ![License](https://img.shields.io/badge/uso-acadêmico-2EA44F)
+![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Serverless](https://img.shields.io/badge/Serverless-FD5750?style=for-the-badge&logo=serverless&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![AWS CDK](https://img.shields.io/badge/AWS_CDK-cc292b?style=for-the-badge&logo=aws-api-gateway&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
 
-> **Uma aplicação para registrar acessos em páginas de lançamento.**
+Este repositório contém o código-fonte e a infraestrutura como código (IaC) do projeto **Contador de Acessos Serverless**, desenvolvido como Trabalho de Conclusão de Curso (TCC) para o **Programa AWS re/Start | Escola da Nuvem**.
 
-## 📋 **Sobre o produto**
+## 📖 Visão Geral do Projeto
 
-Uma startup está lançando um novo produto e precisa medir, de forma objetiva, quantas pessoas demonstraram interesse em uma página de “Em Breve”. O desafio é que a campanha pode receber poucos acessos ou um pico expressivo de tráfego, sem que a equipe precise manter servidores ligados permanentemente.
+Uma startup parceira precisa lançar uma campanha de marketing através de uma *landing page* ("Em Breve"). O tráfego esperado é totalmente imprevisível, podendo variar de algumas dezenas a milhões de acessos simultâneos caso a campanha viralize. 
 
-O **Contador de Acessos Serverless** transforma cada interação em uma métrica de interesse. O usuário realiza uma ação na página, o evento é processado e o total atualizado fica disponível para acompanhamento. A proposta combina uma interface de baixa fricção com uma arquitetura Serverless planejada para reduzir operação manual e acompanhar a demanda.
+Soluções tradicionais baseadas em servidores virtuais (EC2) trariam dois grandes riscos:
+1. **Superdimensionamento:** Desperdício financeiro com servidores ociosos.
+2. **Subdimensionamento:** Queda da aplicação no momento crucial por falta de recursos.
 
-## 🎯 **Problema e oportunidade**
+A solução desenvolvida é uma arquitetura **100% Serverless**, garantindo alta disponibilidade nativa, escalabilidade elástica instantânea e um modelo financeiro altamente otimizado (*Pay-As-You-Go*).
 
-Sem uma solução dedicada, a campanha depende de contagens manuais, métricas dispersas ou uma infraestrutura dimensionada por estimativa. Subdimensionar pode causar indisponibilidade; superdimensionar pode gerar recursos ociosos.
+---
 
-A solução proposta concentra o problema em um fluxo pequeno e mensurável: receber a interação, incrementar um contador global e devolver o resultado atualizado. Esse recorte é adequado para uma campanha inicial porque oferece um indicador claro de interesse sem adicionar complexidade desnecessária à experiência.
+## 🏗️ Arquitetura da Solução
 
-## 💡 **Proposta de valor**
+<!-- 📸 SUBSTITUA O CAMINHO ABAIXO PELA IMAGEM DO SEU DIAGRAMA DE ARQUITETURA -->
+<div align="center">
+  <img src="TCC_AWS_contador_acessos\Docs\Diagrama de Arquitetura.jpg" alt="Diagrama de Arquitetura" width="100%">
+  <br>
+  <em>Figura 1: Diagrama da arquitetura Serverless provisionada na AWS.</em>
+</div>
+<br>
 
-O produto entrega uma forma direta de responder à pergunta **“quantas pessoas chegaram até aqui?”**. Para o negócio, isso significa uma métrica inicial de demanda. Para a equipe técnica, significa uma base simples, documentada e preparada para evoluir para serviços gerenciados da AWS.
+O sistema é orientado a eventos e divide-se em três camadas principais, provisionadas de forma automatizada via **AWS CDK**:
 
-A demonstração local deste repositório permite validar o comportamento sem conta AWS, sem credenciais e sem custos. A arquitetura de produção é apresentada separadamente como desenho conceitual, preservando a distinção entre o que foi executado e o que foi planejado.
+### 1. Camada de Borda e Segurança (Edge Layer)
+*   **Amazon S3:** Hospedagem do front-end estático (HTML/CSS/JS) de forma altamente durável.
+*   **Amazon CloudFront:** CDN global que realiza o cache agressivo dos arquivos estáticos, reduzindo latência e chamadas diretas à origem.
+*   **Origin Access Control (OAC):** Garante que o S3 só possa ser acessado através do CloudFront.
+*   **AWS WAF:** Protege a aplicação contra bots, fraudes no contador e ataques DDoS.
 
-## 🏗️ **Arquitetura e decisões técnicas**
+### 2. Camada de Processamento (Compute Layer)
+*   **Amazon API Gateway:** Exposição de endpoints RESTful seguros, recebendo as requisições assíncronas do front-end.
+*   **AWS Lambda:** O "cérebro" da aplicação. Executa a lógica de negócios stateless (incremento do contador) em questão de milissegundos.
 
-O projeto foi organizado em três responsabilidades principais:
+### 3. Camada de Persistência (Data Layer)
+*   **Amazon DynamoDB:** Banco de dados NoSQL de altíssima performance operando em modo *On-Demand*. Garante a atomicidade com operações `UpdateItem`.
+*   **DynamoDB TTL:** Política automatizada que deleta registros antigos após o término da campanha, otimizando custos a longo prazo.
 
-| Camada | Implementação local | Serviço AWS planejado | Decisão |
-| :--- | :--- | :--- | :--- |
-| Acesso | Front-end HTML e JavaScript | Amazon API Gateway | Centraliza a entrada das requisições. |
-| Processamento | API local e regra de incremento | AWS Lambda | Executa a lógica sob demanda. |
-| Dados | Arquivo JSON persistente | Amazon DynamoDB | Armazena o item global `id = hits`. |
-| Segurança | CORS controlado para a demonstração | AWS IAM | Limita a função às ações necessárias na tabela. |
+---
 
-Na versão AWS, a Lambda usaria uma atualização atômica com `UpdateItem` e `ADD acessos :inc`, evitando a separação insegura entre ler o valor e gravar o próximo valor. A tabela teria uma partition key fixa, `id`, com o item `hits` representando o total global.
+## 🛡️ Segurança e Governança
 
-## 🔄 **Fluxo do produto**
+*   **Princípio do Menor Privilégio:** Implementado via **AWS IAM**. O AWS Lambda possui uma *Role* estrita que permite apenas as ações `PutItem` e `UpdateItem` na tabela específica do DynamoDB.
+*   **Auditoria Contínua:** Utilização do **AWS Trusted Advisor** para garantir conformidade com o *Well-Architected Framework*.
+*   **FinOps:** Monitoramento via **Amazon CloudWatch**, controle estrito de teto de gastos utilizando **AWS Budgets** e alertas críticos via **Amazon SNS**.
 
-```text
-Usuário seleciona “Registrar acesso”
-              ↓
-Front-end envia POST /api/acessos
-              ↓
-Regra de negócio incrementa o contador
-              ↓
-Total é persistido e devolvido à interface
-```
+---
 
-Correspondência com a arquitetura planejada:
+## 💰 Viabilidade Financeira (Estimativa de Custos)
 
-```text
-Página estática → API Gateway → AWS Lambda → DynamoDB
-                                             └→ IAM
-```
+<!-- 📸 SUBSTITUA O CAMINHO ABAIXO PELA IMAGEM DA SUA ESTIMATIVA DE CUSTOS -->
+<div align="center">
+  <img src="TCC_AWS_contador_acessos\Docs\Estimativa de Custos.png" alt="Estimativa de Custos na AWS" width="80%">
+  <br>
+  <em>Figura 2: Estimativa de custos gerada pela AWS Pricing Calculator.</em>
+</div>
+<br>
 
-## ✨ **Funcionalidades**
+Simulação realizada na calculadora oficial da AWS para **1 milhão de acessos mensais** (Região: `us-east-2` - Ohio):
 
-- Contagem global de acessos com identificador `hits`.
-- Consulta do total atual por `GET /api/acessos`.
-- Registro de um novo acesso por `POST /api/acessos`.
-- Reinício do contador por `POST /api/reset`.
-- Endpoint de saúde em `GET /api/health`.
-- Persistência local em JSON para repetir a demonstração sem perder o valor ao recarregar a API.
-- Função Lambda e stack CDK incluídas como base da arquitetura AWS.
-- Testes automatizados para o fluxo principal.
+*   **Custo de Implantação (Setup):** US$ 0,00
+*   **Custo Mensal Estimado:** US$ 52,57
+*   **Custo Anual Projetado:** US$ 630,84
 
-## 🛠️ **Tecnologias**
+Grande parte da economia provém da maximização do *AWS Free Tier* (Always Free) no Lambda e DynamoDB, além da delegação do bloqueio de ataques para a borda com o WAF, poupando processamento de backend.
 
-| Área | Tecnologia | Uso no projeto |
-| :--- | :--- | :--- |
-| Interface | HTML5, CSS básico e JavaScript | Página de demonstração e chamadas HTTP. |
-| API local | Python e Flask | Simulação executável da entrada e do processamento. |
-| Persistência local | JSON | Armazenamento simples para a demonstração. |
-| Computação planejada | AWS Lambda | Função orientada a eventos. |
-| Banco planejado | Amazon DynamoDB | Persistência NoSQL do contador. |
-| API planejada | Amazon API Gateway | Porta de entrada da aplicação. |
-| Infraestrutura planejada | AWS CDK em Python | Definição da infraestrutura como código. |
-| Segurança planejada | AWS IAM | Controle de permissões da função. |
+---
 
-## ▶️ **Como executar a demonstração**
+## ⚙️ Implantação e Uso (CI/CD)
 
 ### Pré-requisitos
+*   [Node.js](https://nodejs.org/) (Para o AWS CDK)
+*   [Python 3.x](https://www.python.org/)
+*   [AWS CLI](https://aws.amazon.com/cli/) configurado com suas credenciais.
+*   [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html) instalado globalmente (`npm install -g aws-cdk`).
 
-É necessário ter Python 3.10 ou superior. A execução demonstrativa não exige conta AWS, credenciais ou serviços externos.
+### Passos para Deploy Local
 
-### **API local**
+1. Clone este repositório:
+   ```bash
+   git clone https://github.com/SEU-USUARIO/contador-acessos-serverless.git
+   cd contador-acessos-serverless
+   ```
 
-No terminal integrado do VS Code, na raiz do projeto, execute:
+2. Crie e ative o ambiente virtual Python:
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate  # No Windows: .venv\Scripts ctivate
+   ```
 
-```powershell
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-python .\local_api\server.py
-```
+3. Instale as dependências da infraestrutura:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-A API ficará disponível em `http://127.0.0.1:5000`.
+4. Realize o bootstrap da conta AWS e faça o deploy:
+   ```bash
+   cdk bootstrap
+   cdk synth
+   cdk deploy
+   ```
 
-### **Front-end**
+### CI/CD com GitHub Actions
+Este projeto utiliza GitHub Actions para integração e entrega contínuas. Qualquer push para a branch `main` executa testes, gera o CloudFormation Template e aplica as mudanças na infraestrutura AWS automaticamente.
 
-Abra um segundo terminal na raiz do projeto e execute:
+---
 
-```powershell
-python -m http.server 8080 --directory frontend
-```
+## 👥 Equipe Desenvolvedora
 
-Acesse `http://localhost:8080` e selecione **Registrar acesso**. A página consultará a API, exibirá o total e atualizará o valor após cada interação.
+*   Beatris Antunes Silva
+*   Deivid Marcio Dos Santos Ferreira
+*   Guilherme José Rodrigues Filho
+*   Rafael De Matos Correa Figueiredo
+*   William Dos Santos Martins
 
-### **Testes da API**
-
-Com as dependências instaladas, execute:
-
-```powershell
-python -m pytest -q
-```
-
-Também é possível testar manualmente:
-
-```powershell
-curl.exe http://127.0.0.1:5000/api/health
-curl.exe http://127.0.0.1:5000/api/acessos
-curl.exe -X POST http://127.0.0.1:5000/api/acessos
-curl.exe -X POST http://127.0.0.1:5000/api/reset
-```
-
-## 📈 **Escalabilidade, segurança e custos**
-
-A arquitetura AWS foi escolhida para que o processamento acompanhe a demanda sem manter uma instância de servidor permanentemente ativa. Em produção, a solução precisaria ser submetida a testes de carga, definição de limites, configuração de CORS, HTTPS, logs e alarmes.
-
-A Lambda deveria receber apenas a permissão de leitura e escrita necessária na tabela do contador. O acesso amplo a outros recursos não faz parte da proposta. A estimativa de custos dependeria de acessos, quantidade de chamadas, duração das funções, armazenamento e distribuição da página; por isso, este repositório não apresenta valores inventados.
-
-## 🧪 **Escopo da validação**
-
-A execução local valida o contrato da API, a regra de incremento, a persistência do valor e a interação básica do front-end. Ela não comprova escalabilidade, disponibilidade ou custos de uma implantação real na AWS. Essa distinção deve ser mantida na defesa para apresentar o produto com precisão técnica.
-
-
-## 👥 **Equipe**
-
-- Alexandra Prudencio Domiciano
-- Beatris Antunes Silva
-- Deivid Marcio Dos Santos Ferreira
-- Guilherme José Rodrigues Filho
-- Rafael De Matos Correa Figueiredo
-- William Dos Santos Martins.
-
-## 📄 **Licença**
-
-Este projeto foi desenvolvido para fins acadêmicos e educacionais no âmbito do programa **AWS re/Start · Escola da Nuvem · 2026**.
+**Orientador:** Prof. Rubens Almeida de Andrade
