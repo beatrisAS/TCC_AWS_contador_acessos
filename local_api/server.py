@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from threading import Lock
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify  # pyright: ignore[reportMissingImports]
 
 DATA_FILE = Path(__file__).resolve().parent / "data.json"
 LOCK = Lock()

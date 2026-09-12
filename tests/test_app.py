@@ -1,10 +1,6 @@
 import json
 
-import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).parents[1] / "local_api"))
-import server
+from local_api import server
 
 
 def test_contador_incrementa_e_persiste(tmp_path, monkeypatch):

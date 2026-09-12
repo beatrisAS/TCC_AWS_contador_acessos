@@ -6,7 +6,7 @@ from aws_cdk import (  # type: ignore[import-not-found]
     aws_dynamodb as dynamodb,
     aws_lambda as lambda_,
 )
-from constructs import Construct
+from constructs import Construct  # type: ignore[import-not-found]
 
 
 class ContadorAcessosStack(Stack):

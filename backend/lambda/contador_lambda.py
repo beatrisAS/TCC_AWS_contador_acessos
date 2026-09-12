@@ -1,7 +1,7 @@
 import json
 import os
 
-import boto3
+import boto3 # type: ignore
 
 
 def handler(event, context):
