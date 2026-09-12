@@ -3,10 +3,13 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from threading import Lock
+from flask import Flask, jsonify, send_from_directory  # pyright: ignore[reportMissingImports]
 
-from flask import Flask, jsonify  # pyright: ignore[reportMissingImports]
-
+# Caminhos dos arquivos e pastas
+BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_FILE = Path(__file__).resolve().parent / "data.json"
+FRONTEND_DIR = BASE_DIR / "frontend"
+
 LOCK = Lock()
 app = Flask(__name__)
 
@@ -33,6 +36,18 @@ def write_total(total: int) -> None:
 
 def payload(total: int):
     return jsonify({"id": "hits", "total_acessos": total})
+
+
+# Rota para servir a página HTML automaticamente na raiz
+@app.get("/")
+def serve_index():
+    return send_from_directory(FRONTEND_DIR, "index.html")
+
+
+# Rota para servir arquivos estáticos (CSS, JS, etc.) caso estejam na mesma pasta do HTML
+@app.get("/<path:path>")
+def serve_static(path):
+    return send_from_directory(FRONTEND_DIR, path)
 
 
 @app.get("/api/health")
