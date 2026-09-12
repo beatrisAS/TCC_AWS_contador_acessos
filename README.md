@@ -24,7 +24,7 @@ A solução desenvolvida é uma arquitetura **100% Serverless**, garantindo alta
 
 <!-- 📸 SUBSTITUA O CAMINHO ABAIXO PELA IMAGEM DO SEU DIAGRAMA DE ARQUITETURA -->
 <div align="center">
-  <img src="TCC_AWS_contador_acessos\Docs\Diagrama de Arquitetura.jpg" alt="Diagrama de Arquitetura" width="100%">
+  <img src="https://github.com/beatrisAS/TCC_AWS_contador_acessos/blob/main/Docs/Diagrama%20de%20Arquitetura.jpg" alt="Diagrama de Arquitetura" width="100%">
   <br>
   <em>Figura 1: Diagrama da arquitetura Serverless provisionada na AWS.</em>
 </div>
@@ -60,7 +60,7 @@ O sistema é orientado a eventos e divide-se em três camadas principais, provis
 
 <!-- 📸 SUBSTITUA O CAMINHO ABAIXO PELA IMAGEM DA SUA ESTIMATIVA DE CUSTOS -->
 <div align="center">
-  <img src="TCC_AWS_contador_acessos\Docs\Estimativa de Custos.png" alt="Estimativa de Custos na AWS" width="80%">
+  <img src="https://github.com/beatrisAS/TCC_AWS_contador_acessos/blob/main/Docs/Estimativa%20de%20Custos.png" alt="Estimativa de Custos na AWS" width="80%">
   <br>
   <em>Figura 2: Estimativa de custos gerada pela AWS Pricing Calculator.</em>
 </div>
