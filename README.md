@@ -16,7 +16,7 @@ Soluções tradicionais baseadas em servidores virtuais (EC2) trariam dois grand
 1. **Superdimensionamento:** Desperdício financeiro com servidores ociosos.
 2. **Subdimensionamento:** Queda da aplicação no momento crucial por falta de recursos.
 
-A solução desenvolvida é uma arquitetura **100% Serverless**, garantindo alta disponibilidade nativa, escalabilidade elástica instantânea e um modelo financeiro altamente otimizado (*Pay-As-You-Go*).
+A solução desenvolvida é uma arquitetura **100% Serverless**, garantindo alta disponibilidade nativa, escalabilidade elástica instantânea e um modelo financeiro altamente otimizado (*Pay-per-use*).
 
 ---
 
